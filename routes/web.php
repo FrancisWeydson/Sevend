@@ -80,6 +80,8 @@ Route::prefix('area-admin')->group(function () {
             return view('area_admin.index');
         })->name('dashboard');
 
+        //oi
+
         Route::get('/admin', [adminController::class, 'index'])->name('admin.index');
         Route::get('/admin/create', [adminController::class, 'create'])->name('admin.create');
         Route::post('/admin', [adminController::class, 'store'])->name('admin.store');
