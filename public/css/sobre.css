@@ -1,0 +1,453 @@
+
+
+
+section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Banner */
+#banner {
+    background-image:  url('/img/banner.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    background-color: #e6c291;
+    text-align: center;
+    padding: 100px 20px;
+    margin-top: -50px; /* Compensa o header fixo */
+    height: 485px;
+    width: 950px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#banner h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+:root {
+    --primary-color: #8B4513; /* Marrom tradicional de padaria */
+    --secondary-color: #d4a76a; /* Dourado claro */
+    --accent-color: #e6c291; /* Bege claro */
+    --text-color: #5a4a42; /* Marrom escuro para texto */
+    --light-bg: #fff9f0; /* Fundo bege claro */
+    --white: #ffffff;
+    --shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .navbarAtivado{
+    border-bottom: 2px solid white !important;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding-top: 100px;
+  }
+  
+  /* Header Moderno */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+     background-color: var(--light-bg);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    transition: all 0.3s ease;
+  }
+  
+  .logo {
+    order: 2;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .img-logo {
+    height: 55px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Menu Hamburguer */
+  .menu-toggle {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    z-index: 1001;
+    order: 1;
+  }
+  
+  .hamburger {
+    height: 3px;
+    width: 100%;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Menu Lateral Moderno */
+  #nav-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100vh;
+    background-color: var(--primary-color);
+    padding: 100px 30px 30px;
+    transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 999;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+  }
+  
+  #nav-menu.active {
+    left: 0;
+  }
+  
+  #nav-menu ul {
+    list-style: none;
+  }
+  
+  #nav-menu ul li {
+    margin-bottom: 25px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.4s ease;
+  }
+  
+  #nav-menu.active ul li {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  #nav-menu ul li:nth-child(1) { transition-delay: 0.1s; }
+  #nav-menu ul li:nth-child(2) { transition-delay: 0.2s; }
+  #nav-menu ul li:nth-child(3) { transition-delay: 0.3s; }
+  #nav-menu ul li:nth-child(4) { transition-delay: 0.4s; }
+  #nav-menu ul li:nth-child(5) { transition-delay: 0.5s; }
+  
+  #nav-menu ul li a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 8px 0;
+    transition: all 0.3s;
+    
+  }
+  
+  #nav-menu ul li a:hover {
+    color: var(--secondary-color);
+    border-bottom: 1px solid var(--secondary-color);
+    padding-left: 5px;
+  }
+  
+  #nav-menu ul li a i {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+  }
+  
+  /* Ícones do Header */
+  .icons {
+    display: flex;
+    gap: 20px;
+    order: 3;
+  }
+  
+  .cart-icon, .perfil-icon {
+    position: relative;
+  }
+  
+  .cart-icon a, .perfil-icon a {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .cart-icon a:hover, .perfil-icon a:hover {
+    transform: scale(1.1);
+    color: var(--secondary-color);
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+  }
+  
+  /* Overlay Moderno */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+  }
+  
+  .overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+.cart-icon {
+    font-size: 18px;
+    
+    color: rgb(131, 82, 44) !important;
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.cta-button {
+    background-color: rgb(131, 82, 44);
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: rgb(131, 82, 44);;
+}
+
+#promotions, #highlights, #order-calculator, #testimonials, #delivery {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.app-stores img {
+    margin: 10px;
+    height: 40px;
+}
+
+.products {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.product {
+    background-color: #efd2a3;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    margin: 190px;
+    padding-top: 300px;
+    height: 400px;
+    text-align: center;
+}
+
+.letra {
+    font-size: 40px;
+    padding-bottom: 300px;
+}
+
+.product img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.card{margin-top: 100px}
+.card-body{
+    background-color: #efd2a3;
+    
+    padding-top: 70px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    height: 400px;
+    margin: 190px;
+
+}
+.texto{
+    font-size: 20px;
+}
+
+.card-title{
+font-size: 40px;
+padding-bottom: 5%;
+
+}
+.card-text{
+    padding-bottom: 17%;
+font-size: 22px;
+
+}
+.btn-btn-primary{
+background-color: #e2a958;
+border-radius: 10px;
+color: black;
+padding-left: 20px;
+padding-right: 20px;
+height: 60;
+
+}
+.btn-btn-primary:hover{
+background-color: bisque;
+}
+
+
+
+
+.testimonials {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.testimonial {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    margin: 10px;
+}
+
+.testimonial img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position:fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+footer .social-media i {
+    font-size: 24px;
+    margin: 10px;
+    color: white;
+}
+
+footer .legal-links a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .products, .testimonials {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product, .testimonial {
+        width: 80%;
+    }
+
+    #banner {
+        padding: 100px 20px;
+    }
+
+    .cta-button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 10%;
+    }
+
+    nav ul li a {
+        font-size: 14px;
+    }
+
+    .cart-icon {
+        font-size: 20px;
+    }
+
+    #banner h1 {
+        font-size: 24px;
+    }
+
+    .cta-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .product, .testimonial {
+        width: 90%;
+    }
+
+    footer .contact-info p {
+        font-size: 14px;
+    }
+
+    footer .social-media i {
+        font-size: 20px;
+    }
+
+    footer .legal-links a {
+        font-size: 14px;
+    }
+ 
+}

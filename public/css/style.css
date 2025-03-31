@@ -1,0 +1,223 @@
+:root {
+    --color-primary: #e1b882;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-info-light: #dce1eb;
+    --color-dark: #363949;
+    --color-light: rgba(132, 139, 200, 0.18);
+    --color-primary-variant: #5f3c0f;
+    --color-dark-variant: #677483;
+    --color-background: #f6f6f9;
+
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}/* Estilo básico para a página */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main-content {
+    margin-left: 280px; /* Ajusta o conteúdo à direita da sidebar */
+    padding: 10px;
+}
+.ic {
+    background: none;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    color: rgb(233, 77, 77);
+    cursor: pointer;
+}
+
+.ig {
+    background: none;
+    border: none;
+    text-decoration: none;
+    padding: 0;
+    box-shadow: none;
+    color:rgb(147, 102, 75);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+/* Título */
+h1 {
+    margin-left: 280px;
+    margin-top: 20px;
+    font-size: 30px;
+    color: #333;
+}
+
+/* Estilo para o botão de adicionar admin */
+.add-button {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 10px 10px;
+    margin-bottom: 5px; /* Adiciona um espaçamento entre o botão e a tabela */
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.add-button:hover {
+    background-color: #2980b9;
+}
+
+/* Estilos da Tabela */
+table {
+    width: 75%;
+    margin-left: 0; /* Para empurrar a tabela à direita da sidebar */
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #997357;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #c0392b;
+}
+.card01{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-left: 250px;
+    padding: 1rem;
+}
+.card {
+    background-color: rgb(255, 255, 255);
+    border-radius: 2rem;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    padding: 1.8rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 1.5rem auto;
+    transition: all 300ms ease;
+}
+
+.card:hover {
+    box-shadow: none;
+}
+
+.card label {
+    text-align: left;
+    margin-bottom: 0.5rem;
+    color: var(--color-dark);
+    font-weight: bold;
+}
+
+.card input {
+    background-color: white;
+    color: var(--color-dark);
+    font-weight: 600;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.card-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+button {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 300ms ease;
+}
+
+button:hover {
+    background-color: var(--color-primary-dark);
+}
+/* Estilos para os botões */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: right;
+    margin-top: 1.5rem;
+}
+
+.btn-voltar, .btn-salvar {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-voltar {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-voltar:hover {
+    background-color: #7f8c8d;
+}
+
+.btn-salvar {
+    width: 90px;
+    color: white;
+}
+
+.btn-salvar:hover {
+    background-color: var(--color-primary);
+}

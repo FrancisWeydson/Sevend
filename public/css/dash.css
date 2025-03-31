@@ -1,0 +1,97 @@
+/* Resetando margens e padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo do body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Cor do fundo da página */
+    color: #333;
+}
+
+/* Estilo da sidebar */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #997357; /* Azul escuro */
+    color: #ecf0f1; /* Cor clara do texto */
+    padding-top: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-top-right-radius: 15px; /* Cantos arredondados no topo */
+    border-bottom-right-radius: 15px; /* Cantos arredondados na parte inferior */
+    overflow-y: auto; /* Caso o conteúdo ultrapasse, permite rolagem */
+}
+
+/* Estilo da lista de itens */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo dos itens da lista */
+.sidebar ul li {
+    padding: 15px 25px;
+    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+.sidebar ul li a {
+    color: #ecf0f1; /* Cor do texto dos links */
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center; /* Para centralizar o ícone e o texto */
+    transition: color 0.3s ease; /* Transição suave de cor */
+}
+
+.sidebar ul li a:hover {
+    background-color: #cdbd92; /* Cor de fundo ao passar o mouse */
+    color: #fff; /* Muda a cor do texto no hover */
+}
+
+.sidebar ul li a i {
+    margin-right: 15px; /* Espaçamento entre ícone e texto */
+    font-size: 20px;
+    transition: transform 0.3s ease; /* Efeito no ícone ao passar o mouse */
+}
+
+.sidebar ul li a:hover i {
+    transform: rotate(10deg); /* Rotaciona o ícone no hover */
+}
+
+/* Estilo do botão de logout */
+form button {
+    width: 100%;
+    padding: 15px;
+    background-color: #cdbd92; /* Vermelho para logout */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center; /* Alinha o ícone do logout e o texto */
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    border-radius: 5px; /* Bordas arredondadas */
+}
+
+form button i {
+    margin-right: 10px; /* Espaçamento entre ícone e texto */
+}
+
+form button:hover {
+    background-color: #cdbd92; /* Cor de fundo ao passar o mouse */
+}
+
+h1 {
+    margin-left: 280px; /* Para empurrar o título para a direita, além da sidebar */
+    margin-top: 20px;
+    font-size: 30px;
+    color: #333;
+}
