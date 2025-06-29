@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email_cliente', 100)->unique();
             $table->string('senha_cliente', 100);
             $table->string('tell_cliente', 15);
-            $table->string('foto_perfil_cliente', 255);
+            $table->string('foto_perfil_cliente', 255)->nullable();
             $table->string('logra_cliente', 100);
             $table->string('numLogra_cliente', 6);
             $table->string('cep_cliente', 9);

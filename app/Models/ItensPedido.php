@@ -19,4 +19,14 @@ class ItensPedido extends Model
         'qtd_itens_pedido', 
         'preco_unitario'
     ];
+
+    public function pedido()
+    {
+        return $this->belongsTo(Pedido::class, 'id_pedido');
+    }
+
+    public function produto()
+    {
+        return $this->belongsTo(Produto::class, 'id_produto');
+    }
 }

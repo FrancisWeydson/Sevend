@@ -1,0 +1,303 @@
+:root {
+    /* ===== Cores ===== */
+    --primary-color: #5a3921;
+    --secondary-color: #f0e6d2;
+    --hover-secondary: #e0d0b8;
+    --hover-primary: #3a2414;
+    --white: #fff;
+    --border-color: #ddd;
+    
+    /* ===== Dimensões ===== */
+    --main-width: 900px;
+    --image-size: 150px;
+    --border-radius: 10px;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    
+    /* ===== Tipografia ===== */
+    --title-font-size: 2.2rem;
+    --subtitle-font-size: 1.5rem;
+    --text-font-size: 1rem;
+    --small-text: 0.9rem;
+    
+    /* ===== Espaçamentos ===== */
+    --section-margin: 30px;
+    --element-margin: 20px;
+    --input-padding: 12px 15px;
+    --button-padding: 12px 20px;
+    --menu-padding: 12px 15px;
+    --gap-between: 20px;
+    
+    /* ===== Mobile ===== */
+    --mobile-main-width: 95%;
+    --mobile-image-size: 120px;
+    --mobile-padding: 15px;
+    --mobile-title: 1.8rem;
+    --mobile-subtitle: 1.2rem;
+    --mobile-gap: 15px;
+  }
+  
+  /* ===== Estilos Gerais ===== */
+  .profile-header {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .profile-header h1 {
+    font-size: 25px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-between);
+    margin-bottom: 50px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+  
+  .profile-content {
+    width: 100%;
+    max-width: var(--main-width);
+  }
+  
+  .profile-section {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: var(--mobile-padding);
+    margin-bottom: var(--element-margin);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+  }
+  
+  .profile-section h2 {
+    color: var(--primary-color);
+    margin: 0 0 var(--element-margin) 0;
+    font-size: var(--subtitle-font-size);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* ===== Seção Foto e Informações ===== */
+  .photo-and-info {
+    display: flex;
+    gap: var(--gap-between);
+    margin-bottom: var(--element-margin);
+    align-items: flex-start;
+  }
+  
+  .profile-picture {
+    flex-shrink: 0;
+  }
+  
+  .image-preview-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+  }
+  .img-preve{
+    width: 200px;
+    height: 200px;
+  }
+  #image-preview {
+    width: var(--image-size);
+    height: var(--image-size);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--secondary-color);
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  #image-preview:hover {
+    opacity: 0.8;
+  }
+  
+  .change-photo-btn {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    padding: var(--input-padding);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: var(--small-text);
+    transition: all 0.3s;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .change-photo-btn:hover {
+    background: var(--hover-secondary);
+  }
+  
+  .basic-info {
+    flex-grow: 1;
+  }
+  
+  /* ===== Formulário ===== */
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-between);
+  }
+  
+  .form-row {
+    display: flex;
+    gap: var(--gap-between);
+    margin-bottom: 15px;
+  }
+  
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    margin-bottom: 8px;
+    color: var(--primary-color);
+    font-weight: 500;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: var(--input-padding);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: var(--text-font-size);
+    transition: all 0.3s;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(90, 57, 33, 0.2);
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--gap-between);
+    margin-top: var(--section-margin);
+  }
+  
+  .save-btn {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: var(--button-padding);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: var(--text-font-size);
+    transition: all 0.3s;
+  }
+  
+  .save-btn:hover {
+    background: var(--hover-primary);
+  }
+  
+  .cancel-btn {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    padding: var(--button-padding);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: var(--text-font-size);
+    transition: all 0.3s;
+  }
+  
+  .cancel-btn:hover {
+    background: var(--hover-secondary);
+  }
+  
+  /* ===== Menu Lateral ===== */
+  .profile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .profile-menu li {
+    margin-bottom: 5px;
+  }
+  
+  .profile-menu a {
+    display: block;
+    padding: var(--menu-padding);
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .profile-menu a:hover {
+    background: var(--secondary-color);
+  }
+  
+  .profile-menu .active a {
+    background: var(--primary-color);
+    color: var(--white);
+  }
+  
+  /* ===== Responsividade ===== */
+  @media (max-width: 992px) {
+    .profile-content {
+      max-width: var(--mobile-main-width);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    :root {
+      --title-font-size: var(--mobile-title);
+      --subtitle-font-size: var(--mobile-subtitle);
+      --gap-between: var(--mobile-gap);
+      --image-size: var(--mobile-image-size);
+      --profile-padding: var(--mobile-padding);
+    }
+    
+    .photo-and-info {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .form-row {
+      flex-direction: column;
+    }
+    
+    .form-actions {
+      flex-direction: column-reverse;
+    }
+    
+    .save-btn, 
+    .cancel-btn {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    :root {
+      --mobile-image-size: 100px;
+      --mobile-padding: 12px;
+      --title-font-size: 1.5rem;
+    }
+    
+    .form-group input,
+    .form-group select {
+      padding: 10px 12px;
+    }
+  }

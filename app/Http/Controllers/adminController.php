@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\Admin;
+use App\Models\HistoricoCliente;
+use App\Models\Produto;
+use App\Models\Cliente;
+use Illuminate\Support\Facades\DB;
+use LimitIterator;
 
 class adminController extends Controller
 {
@@ -22,6 +27,81 @@ class adminController extends Controller
         return view('area_admin.admin.index', compact('admins'));
     }
 
+    public function dashboard()
+{
+    // Total de clientes
+    $totalClientes = Cliente::count();
+
+    // Total de produtos
+    $totalProdutos = Produto::count();
+
+    // Produto mais procurado (versão mais segura)
+    $produtoMaisProcurado = DB::table('tb_produto as p')
+    ->join('tb_historico_cliente as h', function ($join) {
+        $join->on(DB::raw("h.query_historico_cliente"), 'LIKE', DB::raw("CONCAT('%', p.nome_produto, '%')"));
+    })
+    ->select('p.nome_produto', DB::raw('COUNT(*) as total_pesquisas'))
+    ->groupBy('p.id_produto', 'p.nome_produto')
+    ->orderByDesc('total_pesquisas')
+    ->first();
+
+    // Top 5 produtos mais pesquisados
+ $produtosMaisProcurados = DB::table('tb_produto as p')
+        ->join('tb_historico_cliente as h', function ($join) {
+            $join->on(DB::raw("h.query_historico_cliente"), 'LIKE', DB::raw("CONCAT('%', p.nome_produto, '%')"));
+        })
+        ->select('p.nome_produto', DB::raw('COUNT(*) as total_pesquisas'))
+        ->groupBy('p.id_produto', 'p.nome_produto')
+        ->orderByDesc('total_pesquisas')
+        ->limit(5)
+        ->get();
+
+
+        $categoriasVendidas = DB::table('tb_itens_pedido')
+        ->join('tb_produto', 'tb_itens_pedido.id_produto', '=', 'tb_produto.id_produto')
+        ->join('tb_categoria','tb_produto.id_categoria', '=', 'tb_categoria.id_categoria')
+        ->join('tb_pedido', 'tb_itens_pedido.id_pedido', '=', 'tb_pedido.id_pedido')
+        ->select( 'tb_categoria.nome_categoria' , db::raw('SUM(tb_itens_pedido.qtd_itens_pedido) as total_vendido') )
+        ->groupBy('tb_categoria.nome_categoria')
+        ->orderByDesc('total_Vendido')
+        ->limit(5)
+        ->get()
+        ->map(function($item) {
+            return [
+                'name' => $item->nome_categoria,
+                'value' => $item->total_vendido 
+            ];
+        });
+
+
+
+
+       // Produtos por categoria
+    $categorias = DB::table('tb_categoria')
+        ->leftJoin('tb_produto', 'tb_categoria.id_categoria', '=', 'tb_produto.id_categoria')
+        ->select(
+            'tb_categoria.nome_categoria',
+            DB::raw('COUNT(tb_produto.id_produto) as total')
+        )
+        ->groupBy('tb_categoria.id_categoria', 'tb_categoria.nome_categoria')
+        ->get();
+
+    $ultimosClientes = DB::table('tb_cliente')
+        ->select('nome_cliente', 'email_cliente', 'created_at')
+        ->orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get();
+
+    return view('area_admin.index', [
+        'totalClientes' => $totalClientes,
+        'totalProdutos' => $totalProdutos,
+        'produtoMaisProcurado' => $produtoMaisProcurado,
+        'produtosMaisProcurados' => $produtosMaisProcurados,
+        'categorias' => $categorias,
+        'categoriasVendidas' => $categoriasVendidas,
+        'ultimosClientes' => $ultimosClientes
+    ]);
+}
     /**
      * Show the form for creating a new resource.
      *
@@ -45,9 +125,9 @@ class adminController extends Controller
         $request->validate([
             'nome_admin' => 'required',
             'data_nasc_admin' => 'required',
-            'cpf_admin' => 'required',
-            'rg_admin' => 'required',
-            'email_admin' => 'required',
+            'cpf_admin' => 'required|unique:tb_admin,cpf_admin',
+            'rg_admin' => 'required|unique:tb_admin,rg_admin',
+            'email_admin' => 'required|email|unique:tb_admin,email_admin',
             'senha_admin' => 'required',
             'tell_admin' => 'required',
             'foto_perfil_admin' => 'nullable|image|mimes:jpg,jpeg,png|max:6656',
@@ -119,9 +199,9 @@ class adminController extends Controller
         $request->validate([
             'nome_admin' => 'required',
             'data_nasc_admin' => 'required',
-            'cpf_admin' => 'required',
-            'rg_admin' => 'required',
-            'email_admin' => 'required',
+            'cpf_admin' => 'required|unique:tb_admin,cpf_admin',
+            'rg_admin' => 'required|unique:tb_admin,rg_admin',
+            'email_admin' => 'required|email|unique:tb_admin,email_admin',
             'senha_admin' => 'required',
             'tell_admin' => 'required',
             'foto_perfil_admin' => 'nullable|image|mimes:jpg,jpeg,png|max:6656',

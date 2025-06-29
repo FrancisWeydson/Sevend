@@ -20,4 +20,9 @@ class Produto extends Model
         'valor_produto', 
         'img_produto'
     ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'id_categoria');
+    }
 }

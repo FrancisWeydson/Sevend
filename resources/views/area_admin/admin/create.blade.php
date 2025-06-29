@@ -54,11 +54,11 @@
                         </div>
                         <div class="form-group">
                             <label>CEP:</label>
-                            <input type="text"  id="cep" maxlength="9" name="cep_admin" required data-mask="00000-000">
+                            <input type="text"  id="cep" maxlength="9" name="cep_admin" required data-mask="00000-000" onblur="pesquisacep(this.value);">
                         </div>
                         <div class="form-group">
                             <label>Logradouro:</label>
-                            <input type="text" id="endereco" maxlength="100" name="logra_admin" required>
+                            <input type="text" id="logra_admin" maxlength="100" name="logra_admin" required>
                         </div>
                         <div class="form-group">
                             <label>Número:</label>
@@ -70,16 +70,16 @@
                         </div>
                         <div class="form-group">
                             <label>Bairro:</label>
-                            <input type="text" name="bairro_admin" required>
+                            <input type="text" name="bairro_admin" id="bairro_admin" required>
                         </div>
                        
                         <div class="form-group">
                             <label>Cidade:</label>
-                            <input type="text" name="cidade_admin" required>
+                            <input type="text" name="cidade_admin" id="cidade_admin" required>
                         </div>
                         <div class="form-group">
                             <label>UF:</label>
-                            <input type="text"  id="uf" name="uf_admin" required>
+                            <input type="text"  id="uf_admin" name="uf_admin" required>
                         </div>
                     </div>
                     <div class="form-actions">
@@ -98,7 +98,77 @@
     <script src="{{ asset('js/mascara.js') }}"></script>
     <script src="{{ asset('js/img.js') }}"></script>
     <script src="{{ asset('js/adm.js') }}"></script>
-    <script src="{{ asset('js/cep.js') }}"></script>
     <script src="{{ asset('js/password.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script>
+        
+        function limpa_formulário_cep() {
+                //Limpa valores do formulário de cep.
+                document.getElementById('logra_admin').value=("");
+                document.getElementById('bairro_admin').value=("");
+                document.getElementById('cidade_admin').value=("");
+                document.getElementById('uf_admin').value=("");
+        }
+
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                //Atualiza os campos com os valores.
+                document.getElementById('logra_admin').value=(conteudo.logradouro);
+                document.getElementById('bairro_admin').value=(conteudo.bairro);
+                document.getElementById('cidade_admin').value=(conteudo.localidade);
+                document.getElementById('uf_admin').value=(conteudo.uf);
+            } //end if.
+            else {
+                //CEP não Encontrado.
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+            
+        function pesquisacep(valor) {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = valor.replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if(validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    document.getElementById('logra_admin').value="...";
+                    document.getElementById('bairro_admin').value="...";
+                    document.getElementById('cidade_admin').value="...";
+                    document.getElementById('uf_admin').value="...";
+
+                    //Cria um elemento javascript.
+                    var script = document.createElement('script');
+
+                    //Sincroniza com o callback.
+                    script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                    //Insere script no documento e carrega o conteúdo.
+                    document.body.appendChild(script);
+
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    //alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        };
+
+    </script>
 </body>
 </html>

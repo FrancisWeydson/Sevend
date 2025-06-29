@@ -20,4 +20,9 @@ class Pedido extends Model
         'status_pedido', 
         'valor_total_pedido'
     ];
+
+    public function itens()
+    {
+        return $this->hasMany(ItensPedido::class, 'id_pedido');
+    }
 }

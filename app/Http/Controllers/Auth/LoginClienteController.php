@@ -14,27 +14,28 @@ class LoginClienteController extends Controller
     {
         return view('area_cliente.login.cliente_login'); // Crie esta view
     }
-
     public function loginCliente(Request $request)
     {
         $request->validate([
-            'email_cliente' => 'required|email',
-            'senha_cliente' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
-
-        // Busca o clienteistrador no banco de dados
-        $cliente = Cliente::where('email_cliente', $request->email_cliente)->first();
-
-        if ($cliente && Hash::check($request->senha_cliente, $cliente->senha_cliente)) {
+    
+        // Busca o cliente no banco de dados
+        $cliente = Cliente::where('email_cliente', $request->email)->first();
+    
+        if ($cliente && Hash::check($request['password'], $cliente->senha_cliente)) {
+            dd($cliente);
             // Autentica usando o guard 'cliente'
             Auth::guard('web')->login($cliente);
-
+    
             // Redireciona para o dashboard do cliente
-            return redirect()->route('sevend.index');
+            return redirect()->route('sevend.home');
         }
-
-        return back()->withErrors(['email_cliente' => 'Credenciais inválidas.']);
+    
+        return back()->withErrors(['email' => 'Credenciais inválidas.']);
     }
+    
 
     public function showRegisterForm()
     {
@@ -44,49 +45,49 @@ class LoginClienteController extends Controller
     public function registerCliente(Request $request)
     {
         $request->validate([
-            'nome_cliente' => 'required',
-            'data_nasc_cliente' => 'required',
-            'cpf_cliente' => 'required',
-            'rg_cliente' => 'required',
-            'email_cliente' => 'required',
-            'senha_cliente' => 'required',
-            'tell_cliente' => 'required',
-            'logra_cliente' => 'required',
-            'numLogra_cliente' => 'required',
-            'cep_cliente' => 'required',
-            'bairro_cliente' => 'required',
-            'cidade_cliente' => 'required',
-            'uf_cliente' => 'required',
-            'complemento_cliente' => 'required'
+            'nome' => 'required',
+            'dataNasc' => 'required',
+            'cpf' => 'required|unique:tb_cliente,cpf_cliente',
+            'rg' => 'required|unique:tb_cliente,rg_cliente',
+            'email' => 'required|email|unique:tb_cliente,email_cliente',
+            'password' => 'required',
+            'telefone' => 'required',
+            'logra' => 'required',
+            'numLogra' => 'required',
+            'cep' => 'required',
+            'bairro' => 'required',
+            'cidade' => 'required',
+            'uf' => 'required',
+            'complemento' => 'required'
         ]);
 
-        $senhaHash = Hash::make($request->senha_cliente);
+        $senhaHash = Hash::make($request['password']);
 
-        $cliente = Cliente::create([
-            'nome_cliente' => $request->nome_cliente,
-            'data_nasc_cliente' => $request->data_nasc_cliente,
-            'cpf_cliente' => $request->cpf_cliente,
-            'rg_cliente' => $request->rg_cliente,
-            'email_cliente' => $request->email_cliente,
-            'senha_cliente' => $senhaHash,
-            'tell_cliente' => $request->tell_cliente,
-            'logra_cliente' => $request->logra_cliente,
-            'numLogra_cliente' => $request->numLogra_cliente,
-            'cep_cliente' => $request->cep_cliente,
-            'bairro_cliente' => $request->bairro_cliente,
-            'cidade_cliente' => $request->cidade_cliente,
-            'uf_cliente' => $request->uf_cliente,
-            'complemento_cliente' => $request->complemento_cliente
-        ]);
+        $cliente = new CLiente();
+        $cliente->nome_cliente = $request->nome;
+        $cliente->data_nasc_cliente = $request->dataNasc;
+        $cliente->cpf_cliente = $request->cpf;
+        $cliente->rg_cliente = $request->rg;
+        $cliente->email_cliente = $request->email;
+        $cliente->senha_cliente = $senhaHash;
+        $cliente->tell_cliente = $request->telefone;
+        $cliente->logra_cliente = $request->logra;
+        $cliente->numLogra_cliente = $request->numLogra;
+        $cliente->cep_cliente = $request->cep;
+        $cliente->bairro_cliente = $request->bairro;
+        $cliente->cidade_cliente = $request->cidade;
+        $cliente->uf_cliente = $request->uf;
+        $cliente->complemento_cliente = $request->complemento;
+        $cliente->save();
 
         Auth::guard('web')->login($cliente);
 
-        return redirect()->route('sevend.dashboard');
+        return redirect()->route('sevend.home');
     }
 
     public function logoutCliente()
     {
         Auth::guard('web')->logout();  // Faz o logout do cliente
-        return redirect()->route('sevend.dashboard');  // Redireciona para a página inicial (ou para onde preferir)
+        return redirect()->route('sevend.home');  // Redireciona para a página inicial (ou para onde preferir)
     }
 }

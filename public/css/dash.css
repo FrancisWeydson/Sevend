@@ -95,3 +95,31 @@ h1 {
     font-size: 30px;
     color: #333;
 }
+
+/* Container principal da área de gráficos */
+.charts-container {
+    margin-left: 280px; /* Acompanha o espaço da sidebar */
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Estilo individual de cada gráfico */
+.chart-box {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    width: 500px; /* Tamanho fixo mais confortável */
+    max-width: 90vw;
+}
+
+/* Estilo do título do gráfico (caso tenha) */
+.chart-box h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+}

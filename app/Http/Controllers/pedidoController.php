@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Pedido;
 use App\Models\Cliente;
 use Illuminate\Support\Facades\DB;
+use App\Models\Produto;
+use App\Models\Carrinho;
+use App\Models\ItensPedido;
 
 class pedidoController extends Controller
 {
@@ -133,5 +136,54 @@ class pedidoController extends Controller
         $pedido->delete();
 
         return redirect()->route('pedido.index')->with('success', 'feito!');
+    }
+    public function storeCliente($id)
+    {
+        //
+        $cliente= Cliente::findOrFail($id);
+        $carrinho = Carrinho::where('id_cliente', $id)->join('tb_produto', 'tb_carrinho.id_produto', '=', 'tb_produto.id_produto')->get();
+
+        $total = 0;
+
+        foreach ($carrinho as $item) {
+            $total += $item->preco_total_carrinho;
+        };
+
+        $pedido = new Pedido();
+        $pedido->id_cliente = $id;
+        $pedido->data_pedido = now();
+        $pedido->data_entrega_pedido = now()->addDays(20);
+        $pedido->status_pedido = 'Em Andamento';
+        $pedido->valor_total_pedido = $total;
+        $pedido->save();
+
+        foreach ($carrinho as $item) {
+            $itemPedido = new ItensPedido();
+            $itemPedido->id_pedido = $pedido->id_pedido;
+            $itemPedido->id_produto = $item->id_produto;
+            $itemPedido->qtd_itens_pedido = $item->qntd_carrinho;
+            $itemPedido->preco_unitario = $item->preco_total_carrinho;
+            $itemPedido->save();
+
+            $carrinho = Carrinho::findOrFail($item->id_carrinho);
+            $carrinho->delete();
+        };
+
+        return redirect()->route('sevend.pedido.index', $id)->with('success', 'feito!');
+    }
+    public function mostrarPedidos(Request $request, $id)
+    {
+        $filtroStatus = $request->query('status');
+        $pedidos = Pedido::query();
+
+        $pedidos->where('id_cliente', $id)->with('itens.produto');
+
+        if ($filtroStatus) {
+            $pedidos->where('status_pedido', 'like', "%{$filtroStatus}%");
+        }
+
+        $pedidos = $pedidos->get();
+
+        return view('pedidos')->with('pedidos', $pedidos);
     }
 }

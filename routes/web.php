@@ -13,7 +13,9 @@ use App\Http\Controllers\{
     pedidoController,
     produtoController,
     produtoPromocaoController,
-    promocaoController
+    promocaoController,
+    PesquisaController,
+    CarrinhoController
 };
 
 /*
@@ -33,39 +35,50 @@ Route::prefix('/')->name('sevend.')->group(function () {
     Route::post('/login', [LoginClienteController::class, 'loginCliente']);
     Route::get('/register', [LoginClienteController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [LoginClienteController::class, 'registerCliente']);
-    Route::get('/', function () {
-        return view('area_cliente.index');
-    })->name('index');
 
-    Route::get('', function() {
-        return view('index');
-    })->name('home');
+    Route::get('', [produtoController::class, 'home'])->name('home');
+
+    Route::get('/', [produtoController::class, 'home'])->name('home');
+
+    Route::get('/sobre', function () {
+        return view('sobre');
+    })->name('sobre');
+    
+    Route::get('/produtos', [produtoController::class, 'produtos'])->name('produto');
+
+    Route::get('/pesquisa', [PesquisaController::class, 'query'])->name('pesquisa');
+
     Route::middleware('auth:web')->group(function () {
-        Route::post('logout', [LoginClienteController::class, 'logoutCliente'])->name('logout');
+        Route::get('logout', [LoginClienteController::class, 'logoutCliente'])->name('logout');
+        
+        Route::get('/sevend/perfil/{id}/edit', [clienteController::class, 'edit2'])->name('perfil.edit');
+        
+        Route::delete('/sevend/perfil/delete/{id}', [clienteController::class, 'destroy2'])->name('perfil.delete');
+
+        Route::put('/sevend/perfil/update/{id}', [clienteController::class, 'updateProfile'])->name('perfil.update');
+
+        Route::put('/sevend/perfil/updateSenha/{id}', [clienteController::class, 'updateSenhaProfile'])->name('perfil.updateSenha');
+
+        Route::get('/sevend/carrinho/{id}', [CarrinhoController::class, 'indexCliente'])->name('carrinho.index');
+    
+        Route::get('/sevend/pedido/{id}', [pedidoController::class, 'storeCliente'])->name('pedido.store');
+
+        Route::get('/sevend/pedidos/{id}', [pedidoController::class, 'mostrarPedidos'])->name('pedido.index');
     });
+    
 
 });
 
-Route::get('/', function () {
-    return view('index'); // 
-})->name('home');
 
 
-Route::get('/cliente/login', function () {
+/*Route::get('/cliente/login', function () {
     return view('area_cliente.login.cliente_login'); 
 })->name(name: 'clienteLogin');
 
 Route::get('/cliente/register', function () {
     return view('area_cliente.login.cliente_register'); 
-})->name(name: 'clienteRegister');
+})->name(name: 'clienteRegister');*/
 
-Route::get('/sobre', function () {
-    return view('sobre');
-})->name('sobre');
-
-Route::get('/produtos', function () {
-    return view('produtos');
-})->name('produto');
 
 
 Route::prefix('area-admin')->group(function () {
@@ -73,12 +86,8 @@ Route::prefix('area-admin')->group(function () {
     Route::post('/login', [LoginAdminController::class, 'loginAdmin']);
     
         
-
-    Route::middleware('auth:admin')->group(function () {
-        Route::post('/logout', [LoginAdminController::class, 'logoutAdmin'])->name('logout');
-        Route::get('/dashboard', function () {
-            return view('area_admin.index');
-        })->name('dashboard');
+   Route::post('/logout', [LoginAdminController::class, 'logoutAdmin'])->name('logout');
+        
 
         //oi
 
@@ -90,6 +99,15 @@ Route::prefix('area-admin')->group(function () {
         Route::put('/admin/{id}', [adminController::class, 'update'])->name('admin.update');
         Route::delete('/admin/{id}', [adminController::class, 'destroy'])->name('admin.destroy');
 
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/perfil', [clienteController::class, 'showProfile'])->name('perfil');
+        Route::put('/perfil/update', [clienteController::class, 'updateProfile'])->name('perfil.update');
+    });
+    Route::middleware('auth:admin')->group(function () {
+
+        Route::get('/dashboard', [adminController::class, 'dashboard'])->name('dashboard');
+     
         Route::get('/categoria', [categoriaController::class, 'index'])->name('categoria.index');
         Route::get('/categoria/create', [categoriaController::class, 'create'])->name('categoria.create');
         Route::post('/categoria', [categoriaController::class, 'store'])->name('categoria.store');
@@ -153,6 +171,14 @@ Route::prefix('area-admin')->group(function () {
         Route::get('/promocao/{id}/edit', [promocaoController::class, 'edit'])->name('promocao.edit');
         Route::put('/promocao/{id}', [promocaoController::class, 'update'])->name('promocao.update');
         Route::delete('/promocao/{id}', [promocaoController::class, 'destroy'])->name('promocao.destroy');
+
+        Route::get('/carrinho', [CarrinhoController::class, 'index'])->name('carrinho.index');
+        Route::get('/carrinho/create', [CarrinhoController::class, 'create'])->name('carrinho.create');
+        Route::post('/carrinho', [CarrinhoController::class, 'store'])->name('carrinho.store');
+        Route::get('/carrinho/{id}', [CarrinhoController::class, 'show'])->name('carrinho.show');
+        Route::get('/carrinho/{id}/edit', [CarrinhoController::class, 'edit'])->name('carrinho.edit');
+        Route::put('/carrinho/{id}', [CarrinhoController::class, 'update'])->name('carrinho.update');
+        Route::delete('/carrinho/{id}', [CarrinhoController::class, 'destroy'])->name('carrinho.destroy');
     });
 
 });

@@ -33,6 +33,28 @@ class produtoController extends Controller
         return view('area_admin.produto.index')->with('prds', $prds);
     }
 
+    public function home()
+    {
+        $prods = DB::table('tb_produto as p')
+        ->join('tb_historico_cliente as h', function ($join) {
+            $join->on(DB::raw("h.query_historico_cliente"), 'LIKE', DB::raw("CONCAT('%', p.nome_produto, '%')"));
+        })
+        ->select('p.nome_produto','p.id_produto', 'p.valor_produto', 'p.img_produto', 'p.desc_produto', DB::raw('COUNT(*) as total_pesquisas'))
+        ->groupBy('p.id_produto', 'p.nome_produto', 'p.valor_produto', 'p.img_produto', 'p.desc_produto')
+        ->orderByDesc('total_pesquisas')
+        ->limit(3)
+        ->get();
+
+        return view('index')->with('prods', $prods);
+    }
+
+    public function produtos()
+    {
+        $prods = Produto::all();
+
+        return view('produtos')->with('prods', $prods);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -11,50 +11,19 @@
   
 </head>
 <body>
-<header>
-        <div class="menu-toggle" id="mobile-menu">
-            <div class="hamburger"></div>
-            <div class="hamburger"></div>
-            <div class="hamburger"></div>
-        </div>
-        
-<div class="logo">
-            <img src="{{url('img/LOGO.png')}}" class="img-logo" alt="Padaria dos Três">
-        </div>
-    
-    <!-- Menu Lateral -->
-    
-       
-
-        <div class="icons">
-
-        <div class="cart-icon">
-                <a href="#">
-                
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </a>
-            </div>
-            
-            <div class="perfil-icon"> 
-            <a href="#">
-            <i class="fa-solid fa-user"></i>
-            </a>
-            </div>
-
-            
-        </div>
-    </header>   
+    @if(Auth::guard('web')->check())
+        @include('components.headerLogin')
+    @else
+        @include('components.header')
+    @endif
 
     
     <!-- Menu Lateral -->
     <nav id="nav-menu">
     <ul>
-            <li><a class="{{ Request::is('') ? 'navbarAtivado' : '' }}" href="{{ route('home') }}"><i class="fas fa-home"></i> Início</a></li>
-            <li><a class="{{ Request::is('sobre') ? 'navbarAtivado' : '' }}" href="{{ route('sobre') }}"><i class="fas fa-info-circle"></i> Sobre Nós</a></li>
-            <li><a class="{{ Request::is('produtos') ? 'navbarAtivado' : '' }}" href="{{ route('produto') }}"><i class="fas fa-utensils"></i> Produtos</a></li>
-            <li><a class="{{ Request::is('') ? 'navbarAtivado' : '' }}" href="#contact"><i class="fas fa-envelope"></i> Contato</a></li>
-            <li><a href="{{ route('clienteLogin') }}"><i class="fas fa-user"></i> Login/Registrar</a></li>
+            <li><a class="{{ Request::is('home') ? 'navbarAtivado' : '' }}" href="{{ route('sevend.home') }}"><i class="fas fa-home"></i> Início</a></li>
+            <li><a class="{{ Request::is('sobre') ? 'navbarAtivado' : '' }}" href="{{ route('sevend.sobre') }}"><i class="fas fa-info-circle"></i> Sobre Nós</a></li>
+            <li><a class="{{ Request::is('produtos') ? 'navbarAtivado' : '' }}" href="{{ route('sevend.produto') }}"><i class="fas fa-utensils"></i> Produtos</a></li>
         </ul>
     </nav>
     

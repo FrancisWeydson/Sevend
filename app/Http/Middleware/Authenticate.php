@@ -14,11 +14,19 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
-            // Verifique se o usuário está autenticado como admin ou cliente
-            if ($request->is('area-admin/*')) {
-                return route('login'); 
-            }
+        if (!$request || $request->expectsJson()) {
+            return null;
         }
+    
+        if ($request->is('area-admin/*')) {
+            return route('login');
+        }
+
+        if ($request->is('sevend/*')) {
+            return route('sevend.home');
+        }
+    
+        // fallback padrão
+        return route('login'); // ou qualquer rota genérica de login que você tenha
     }
 }
